@@ -22,15 +22,19 @@ bot.onText(/\/start/, async (msg) => {
   if (from) {
     await prisma.usuario.upsert({
       where: { telegramId: from.id },
-      update: {}, // se já existe, só atualiza "ultimaVez" (automático via @updatedAt)
-      create: {
-        telegramId: from.id,
-        firstName: from.first_name,
-        username: from.username,
-        languageCode: from.language_code,
-      },
-    });
-  }
+      update: {
+      firstName: from.first_name,
+      username: from.username,
+      languageCode: from.language_code,
+    },
+    create: {
+      telegramId: from.id,
+      firstName: from.first_name,
+      username: from.username,
+      languageCode: from.language_code,
+    },
+  });
+}
 
   bot.sendMessage(
     chatId,
