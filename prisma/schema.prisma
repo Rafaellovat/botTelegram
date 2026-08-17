@@ -12,10 +12,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Cliente {
-  id        Int      @id @default(autoincrement())
-  nome      String
-  telefone  String   @unique
-  email     String?
-  criadoEm  DateTime @default(now())
+model Usuario {
+  id           Int      @id @default(autoincrement())
+  telegramId   BigInt   @unique
+  firstName    String?
+  username     String?
+  languageCode String?
+  primeiraVez  DateTime @default(now())
+  ultimaVez    DateTime @updatedAt
 }
