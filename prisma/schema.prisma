@@ -13,11 +13,22 @@ datasource db {
 }
 
 model Usuario {
-  id           Int      @id @default(autoincrement())
-  telegramId   BigInt   @unique
-  firstName    String?
-  username     String?
-  languageCode String?
-  primeiraVez  DateTime @default(now())
-  ultimaVez    DateTime @updatedAt
+  id             Int        @id @default(autoincrement())
+  telegramId     BigInt     @unique
+  username       String?
+  apelido        String
+  dataNascimento DateTime?
+  primeiraVez    DateTime   @default(now())
+  ultimaVez      DateTime   @updatedAt
+  lembretes      Lembrete[]
+}
+
+model Lembrete {
+  id        Int       @id @default(autoincrement())
+  texto     String
+  dataHora  DateTime?
+  enviado   Boolean   @default(false)
+  criadoEm  DateTime  @default(now())
+  usuario   Usuario   @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  usuarioId Int
 }
