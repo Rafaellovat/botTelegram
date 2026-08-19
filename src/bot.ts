@@ -51,9 +51,13 @@ bot.onText(/\/start/, async (msg) => {
     return;
   }
 
+      // Primeira mensagem: enviada quando o /start é de um chatId novo (ainda não cadastrado no banco)
   await bot.sendMessage(
     chatId,
-    'Olá! Vi que é a sua primeira vez por aqui.\n\n' +
+    'Oi! Eu sou o Lino, seu bot de lembretes 🔔\n\n' +
+      '⚠️ Antes de continuar: as notificações desse chat costumam vir desativadas por padrão. ' +
+      'Ative nas configurações do chat (ícone de sino no topo da conversa) pra garantir que meus lembretes cheguem até você.\n\n' +
+      'Vi que é a sua primeira vez por aqui.\n\n' +
       'Ao continuar, você autoriza o compartilhamento de alguns dados públicos (como seu @ do Telegram) ' +
       'para fins unicamente acadêmicos.',
     tecladoConsentimento
@@ -292,7 +296,12 @@ bot.on('message', async (msg) => {
       });
 
       limparEstado(chatId);
-      await bot.sendMessage(chatId, `Lembrete salvo! Vou te avisar em ${formatarDataHora(data)}. ✅`, tecladoMenuPrincipal);
+      await bot.sendMessage(
+        chatId,
+        `Lembrete salvo! Vou te avisar em ${formatarDataHora(data)}. ✅\n\n` +
+          '🔔 Não esqueça de ativar a notificação: clica no meu nome aqui em cima e depois no sino.',
+        tecladoMenuPrincipal
+      );
       break;
     }
 
